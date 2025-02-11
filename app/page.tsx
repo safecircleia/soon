@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 import {
   FaGithub,
   FaTwitter,
@@ -9,8 +8,10 @@ import {
   FaDiscord,
   FaInstagram,
 } from "react-icons/fa";
-import Aurora from "@/components/ui/aurora";
-
+import Orb from "../components/ui/orb";
+import SplitText from "../components/ui/split";
+import StarBorder from "@/components/ui/border";
+import ShinyText from "@/components/ui/shiny";
 
 function SocialButton({
   href,
@@ -37,31 +38,47 @@ function SocialButton({
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-black text-white">
-      {/* Aurora Background */}
       <div className="absolute inset-0 w-full h-full">
-        <Aurora colorStops={["#1A5FB4", "#9141AC", "#E01B24"]} 
-        speed={0.5}
-        amplitude={0.2} 
+        <Orb
+          hoverIntensity={0.5}
+          rotateOnHover={true}
+          hue={0}
+          forceHoverState={false}
         />
       </div>
-      
-      {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center pt-20">
-        {/* Coming Soon Chip */}
-        <div className="relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-          <div className="relative px-4 py-1.5 rounded-full text-xs md:text-sm font-medium bg-gradient-to-r from-neutral-900/90 to-neutral-800/90 text-neutral-300 border border-neutral-800/50 hover:border-neutral-700/50 backdrop-blur-sm transition duration-300">
-            Coming soon
+
+      {/* Content Container as vertical stack centered completely */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen pointer-events-none space-y-8">
+        {/* Coming Soon Chip wrapped for interactivity */}
+        <div className="pointer-events-auto">
+          <div className="relative group">
+            <StarBorder
+              as="button"
+              className="custom-class"
+              color="cyan"
+              speed="5s"
+            >
+              Coming Soon
+              </StarBorder>
           </div>
         </div>
 
-        {/* Title with Text Hover Effect */}
-        <div className="w-full max-w-50xl">
-          <TextHoverEffect text="SafeCircle" />
+        {/* Title centered without absolute positioning */}
+        <div className="pointer-events-auto">
+          <SplitText
+            text="SafeCircle"
+            className="text-9xl font-bold text-center text-white"
+            delay={150}
+            animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
+            animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
+            easing={(t) => 1 - Math.pow(1 - t, 3)}
+            threshold={0.2}
+            rootMargin="-50px"
+          />
         </div>
 
-        {/* Social Icons */}
-        <div className="flex justify-center items-center gap-8 py-6">
+        {/* Social Icons wrapped for interactivity */}
+        <div className="pointer-events-auto flex justify-center items-center gap-8 py-6">
           <SocialButton
             href="https://github.com/safecircleia"
             label="Visit our GitHub"
@@ -89,10 +106,12 @@ export default function Home() {
           />
         </div>
 
-        {/* Description */}
-        <p className="text-xs md:text-xl font-normal text-center text-neutral-400 max-w-lg">
-          AI powered solution to detect predatory behavior
-        </p>
+        {/* Description wrapped for interactivity */}
+        <div className="pointer-events-auto">
+          <p className="text-xs md:text-xl font-normal text-center text-neutral-400 max-w-lg">
+            <ShinyText text="AI powered solution to detect predatory behavior" disabled={false} speed={3} className='custom-class' />
+          </p>
+        </div>
       </div>
     </div>
   );
